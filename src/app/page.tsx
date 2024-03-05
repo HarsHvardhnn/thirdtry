@@ -11,21 +11,26 @@ import ClampedSidebar from "@/components/Sidebar/ClampedSidebar";
 
 export default function Home() {
   const sampleData = [1, 2, 3];
-  const isMobile = useMediaQuery({ maxWidth: 600 });
+const isMobile = useMediaQuery({ maxWidth: 600 });
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
+const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
 
+useEffect(() => {
+  const handleResize = () => {
+    
+    setWindowWidth(typeof window !== 'undefined' ? window.innerWidth : 0);
+  };
+
+
+  if (typeof window !== 'undefined') {
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }
+}, []); 
   return (
     <div className="bg-white">
       {/* <Header></Header> */}
